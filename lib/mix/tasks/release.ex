@@ -42,6 +42,7 @@ defmodule Mix.Tasks.Release do
   @_RELEASE_DEF "release_definition.txt"
   @_RELEASES    "{{{RELEASES}}}"
   @_NAME        "{{{PROJECT_NAME}}}"
+  @_ENVIRONMENT "{{{PROJECT_ENV}}}"
   @_VERSION     "{{{PROJECT_VERSION}}}"
   @_ERTS_VSN    "{{{ERTS_VERSION}}}"
   @_ERL_OPTS    "{{{ERL_OPTS}}}"
@@ -230,6 +231,7 @@ defmodule Mix.Tasks.Release do
     [{boot, dest}, {winboot, windest}, {shim, shim_dest}, {winshim, winshim_dest}]
     |> Enum.each(fn {infile, outfile} ->
       contents = File.read!(infile)
+        |> String.replace(@_ENVIRONMENT, Mix.env)
         |> String.replace(@_NAME, name)
         |> String.replace(@_VERSION, version)
         |> String.replace(@_ERTS_VSN, erts)
