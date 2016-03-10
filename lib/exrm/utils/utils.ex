@@ -106,7 +106,8 @@ defmodule ReleaseManager.Utils do
     end
     case result do
       {:ok, _state} -> :ok
-      {:error, _e}  -> {:error, "Failed to build release. Please fix any errors and try again."}
+      {:error, relx_error}  ->
+        {:error, "Failed to build release. Please fix any errors and try again. #{relx_error}"}
     end
   end
 
